@@ -13,6 +13,10 @@ gem "puma", ">= 5.0"
 
 gem "sidekiq"
 
+gem "rspec-rails", "~> 6.0.0"
+
+gem 'kaminari'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
