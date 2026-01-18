@@ -1,0 +1,110 @@
+# docker-compose.yml
+# Orchestrates all services for the application
+
+# Shared configuration (YAML anchor)
+# This is like a template we can reuse
+x-app: &app
+  build:
+    context: . # Use Dockerfile in current directory
+    dockerfile: Dockerfile
+  volumes:
+    # Bind mount: sync code between host and container
+    - .:/app
+    # Anonymous volumes: don't mount these specific directories
+    - /app/node_modules
+    - /app/tmp
+  environment:
+    # Database connection
+    DATABASE_URL: postgresql://postgres:password@db:5432/ticket_sales_development?pool=5
+
+    # Redis connection
+    REDIS_URL: redis://redis:6379/0
+
+    # Rails environment
+    RAILS_ENV: development
+    RACK_ENV: development
+
+    # Rails settings
+    RAILS_MAX_THREADS: 5
+
+    # Timezone
+    TZ: America/New_York
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  stdin_open: true
+  tty: true
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine # Alpine = smaller image
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ticket_sales_development
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      # Named volume for data persistence
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      # Docker checks if PostgreSQL is ready
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s # Check every 10 seconds
+      timeout: 5s # Timeout after 5 seconds
+      retries: 5 # Try 5 times before marking unhealthy
+      start_period: 10s # Give 10 seconds before first check
+    restart: unless-stopped
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --appendfsync everysec
+    # Explanation:
+    # --appendonly yes: Enable persistence
+    # --appendfsync everysec: Sync to disk every second
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  # Rails Web Server
+  web:
+    <<: *app # Inherit from x-app template
+    command: >
+      bash -c "
+        rm -f tmp/pids/server.pid &&
+        bundle exec rails db:prepare &&
+        bundle exec rails server -b 0.0.0.0
+      "
+    # Explanation:
+    # rm -f tmp/pids/server.pid: Remove stale PID file
+    # db:prepare: Create database if missing, run migrations
+    # rails server -b 0.0.0.0: Start server on all interfaces
+    ports:
+      - "3000:3000"
+
+  # Sidekiq Worker
+  sidekiq:
+    <<: *app # Inherit from x-app template
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    # No ports needed - Sidekiq doesn't serve HTTP
+
+# Named volumes
+# Data persists even when containers are deleted
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

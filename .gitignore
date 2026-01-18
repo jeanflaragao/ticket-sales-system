@@ -1,0 +1,94 @@
+# == Ruby on Rails Git Ignore ==
+
+# Ignore bundler config
+/.bundle
+
+# Ignore local environment files
+.env
+.env.*
+*.local
+
+# Ignore master key (if not using credential storage)
+config/master.key
+config/credentials/*.key
+
+# Ignore temp directories
+/tmp
+/log/*
+!/log/.keep
+
+# Ignore storage (ActiveStorage)
+/storage/*
+!/storage/.keep
+
+# Ignore uploaded files in development
+/public/system
+/public/uploads
+/public/packs
+/public/assets
+
+# Ignore Rails cache files
+/tmp/cache
+
+# Ignore build artifacts
+/tmp/pids
+/tmp/sockets
+
+# Ignore database files (if SQLite)
+*.sqlite3
+*.sqlite3-journal
+
+# Ignore Yarn / Node dependencies
+/node_modules
+/yarn-error.log
+/npm-debug.log
+
+# Ignore precompiled assets
+/public/packs-test
+/node_modules
+
+# Ignore coverage tools
+/coverage
+
+# Ignore dotenv files backup
+*.bak
+
+# Ignore byebug command history
+.byebug_history
+
+# Ignore RuboCop config cache
+.rubocop*
+.rubocop_cache
+
+# Ignore Solargraph cache
+.solargraph.yml
+.solargraph
+
+# Ignore OS junk
+.DS_Store
+Thumbs.db
+
+# Ignore VSCode settings
+.vscode/*
+
+# Ignore Docker temporary files
+docker-compose.override.yml
+docker-sync.yml
+docker-compose.override.yaml
+
+# Ignore vendor folder if bundling gems locally
+/vendor/bundle
+
+# Ignore Rails webpacker artifacts (Rails < 7)
+public/packs
+public/packs-test
+.tmp/
+
+# Ignore test report files
+spec/examples.txt
+
+# Ignore redis dump
+dump.rdb
+
+# Ignore credentials JSON cache
+/config/credentials/*.json

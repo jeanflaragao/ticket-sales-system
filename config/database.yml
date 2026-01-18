@@ -1,0 +1,27 @@
+# config/database.yml
+# Database configuration for different environments
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # Use DATABASE_URL environment variable
+  url: <%= ENV['DATABASE_URL'] %>
+  # Additional connection settings
+  timeout: 5000
+  variables:
+    statement_timeout: 5000 # Cancel queries after 5 seconds
+
+development:
+  <<: *default
+  # Override database name if needed
+  # database: ticket_sales_development
+
+test:
+  <<: *default
+  database: ticket_sales_test
+
+production:
+  <<: *default
+  # Production-specific settings
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
