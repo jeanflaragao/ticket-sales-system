@@ -13,8 +13,6 @@ gem "puma", ">= 5.0"
 
 gem "sidekiq"
 
-gem "rspec-rails", "~> 6.0.0"
-
 gem 'kaminari'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -46,6 +44,11 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'solargraph'
   gem 'bullet'
+  gem 'rspec-rails', '~> 6.1'
+  gem 'factory_bot_rails', '~> 6.4'
+  gem 'faker', '~> 3.2'
+  gem 'shoulda-matchers', '~> 6.0'  
+  gem 'database_cleaner-active_record', '~> 2.1'
 end
 
 group :development do
