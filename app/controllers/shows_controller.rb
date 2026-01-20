@@ -15,7 +15,7 @@ class ShowsController < ApiController
     if show.save
       render json: show, status: :created
     else
-      render json: show.errors, status: :unprocessable_entity
+      render json: show.errors, status: :unprocessable_content
     end
   end
 
