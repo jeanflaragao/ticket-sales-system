@@ -4,11 +4,8 @@ Rails.application.routes.draw do
   get "/health", to: "health#show"
   root "health#show"
   
-  # Shows API
-  resources :shows, only: [:index, :show, :create, :update] do
-    member do
-      get :availability
-    end
+  resources :shows do
+    get :availability, on: :member
   end
   
   # Orders API

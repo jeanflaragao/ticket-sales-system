@@ -36,10 +36,6 @@ class Show < ApplicationRecord
     return 0 if total_inventory.zero?
     (sold_inventory.to_f / total_inventory * 100).round(2)
   end
-
-  def price
-    150.0  # Default price for now
-  end
   
   private
   
