@@ -15,6 +15,8 @@ gem "sidekiq"
 
 gem 'kaminari'
 
+gem "globalid", "~> 1.3.0"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
