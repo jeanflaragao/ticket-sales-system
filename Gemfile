@@ -51,10 +51,15 @@ group :development, :test do
   gem 'faker', '~> 3.2'
   gem 'shoulda-matchers', '~> 6.0'  
   gem 'database_cleaner-active_record', '~> 2.1'
+  gem "rubocop", "~> 1.82", require: false
+  gem "rubocop-rails", "~> 2.25", require: false
+  gem "rubocop-rspec", "~> 2.29", require: false
+  gem "rubocop-performance", "~> 1.17", require: false
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+ 
 end
 
