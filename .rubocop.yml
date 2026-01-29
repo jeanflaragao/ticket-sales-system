@@ -1,0 +1,80 @@
+require:
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-factory_bot
+  - rubocop-capybara
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "db/schema.rb"
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+
+############################
+# Layout & Style
+############################
+
+Layout/LineLength:
+  Max: 100
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+############################
+# Metrics (Clean Code-friendly)
+############################
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/PerceivedComplexity:
+  Max: 8
+
+############################
+# Rails
+############################
+
+Rails:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: true
+
+############################
+# RSpec (Important)
+############################
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/NestedGroups:
+  Max: 3
+
+RSpec/MultipleExpectations:
+  Max: 3
+
+RSpec/ImplicitExpect:
+  Enabled: true
+
+RSpec/LetSetup:
+  Enabled: false
