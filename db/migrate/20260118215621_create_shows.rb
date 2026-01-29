@@ -8,7 +8,7 @@ class CreateShows < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    
+
     add_index :shows, :name
   end
 end

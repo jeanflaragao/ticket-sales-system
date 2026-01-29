@@ -7,7 +7,7 @@ class CreateOrders < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    
+
     add_index :orders, :customer_email
     add_index :orders, :status
     add_index :orders, :created_at
