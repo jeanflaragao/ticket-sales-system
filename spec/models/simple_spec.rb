@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Simple test" do
-  it "works" do
+RSpec.describe 'Simple test' do
+  it 'works' do
     expect(1 + 1).to eq(2)
   end
 end
