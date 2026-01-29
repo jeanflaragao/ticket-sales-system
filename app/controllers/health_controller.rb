@@ -19,7 +19,7 @@ class HealthController < ApplicationController
   end
 
   def redis_healthy?
-    Redis.new(url: ENV['REDIS_URL']).ping == 'PONG'
+    Redis.new(url: ENV.fetch('REDIS_URL', nil)).ping == 'PONG'
   rescue StandardError
     false
   end
