@@ -10,21 +10,15 @@ class OrdersController < ApiController
   end
 
   def create
-    form = BulkOrderForm.new(
+    result = Orders::CreateOrderWorkflow.call(
       customer_email: params[:customer_email],
-      customer_name: params[:customer_name],
-      payment_method: params[:payment_method],
-      coupon_code: params[:coupon_code]
+      items: params[:items] || []
     )
 
-    params[:items]&.each do |item|
-      form.add_item(item[:show_id], item[:quantity])
-    end
-
-    if form.save
-      render json: form.order, status: :created
+    if result.success?
+      render json: result.order, status: :created
     else
-      render json: { errors: form.errors.full_messages }, status: :unprocessable_content
+      render json: { error: result.error }, status: :unprocessable_content
     end
   end
 
