@@ -1,6 +1,6 @@
 module Payment
   class StripeGateway < Base
-    def charge(amount, options = {})
+    def charge(amount, _options = {})
       # Simulated Stripe API call
       {
         success: true,
@@ -8,8 +8,8 @@ module Payment
         amount: amount
       }
     end
-    
-    def refund(transaction_id, amount)
+
+    def refund(_transaction_id, amount)
       {
         success: true,
         refund_id: "refund_#{SecureRandom.hex(10)}",

@@ -12,9 +12,9 @@ class ProcessPaymentService
     result = @payment_gateway.charge(@order.total)
     if result[:success]
       @transaction = result
-      @order.update!(status: "confirmed")
+      @order.update!(status: 'confirmed')
     else
-      @errors << "Payment failed"
+      @errors << 'Payment failed'
     end
 
     self
