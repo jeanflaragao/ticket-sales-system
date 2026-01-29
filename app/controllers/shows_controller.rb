@@ -1,6 +1,6 @@
 class ShowsController < ApiController
   def index
-    shows = Show.all
+    shows = ShowSearchQuery.new.call(search_params)
     render json: shows
   end
 
@@ -21,8 +21,12 @@ class ShowsController < ApiController
 
   private
 
+  def search_params
+    params.permit(:available, :min_price, :max_price, :search, :start_date, :end_date, :sort)
+  end
+
   def show_params
-     params
+    params
       .require(:show)
       .permit(:name, :total_inventory, :price)
   end
