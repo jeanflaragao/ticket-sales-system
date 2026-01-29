@@ -1,7 +1,7 @@
-require "connection_pool"
+require 'connection_pool'
 
 REDIS_CONFIG = {
-  url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0"),
+  url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'),
   timeout: 5,
   reconnect_attempts: 3
 }
